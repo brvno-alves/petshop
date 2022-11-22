@@ -3,9 +3,9 @@ package com.bruno.petshop.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.bruno.petshop.domain.Raca;
+import com.bruno.petshop.domain.Estado;
 
 @Repository
-public interface RacaRepository extends JpaRepository<Raca, Integer> {
+public interface EstadoRepository extends JpaRepository<Estado, Integer> {
 
 }
