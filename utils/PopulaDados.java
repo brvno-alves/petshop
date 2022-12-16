@@ -9,15 +9,20 @@ import org.springframework.stereotype.Component;
 
 import com.bruno.petshop.domain.Categoria;
 import com.bruno.petshop.domain.Cidade;
+import com.bruno.petshop.domain.Cliente;
+import com.bruno.petshop.domain.Endereco;
 import com.bruno.petshop.domain.Especie;
 import com.bruno.petshop.domain.Estado;
+import com.bruno.petshop.domain.Funcionario;
 import com.bruno.petshop.domain.Pet;
 import com.bruno.petshop.domain.Produto;
 import com.bruno.petshop.domain.Raca;
 import com.bruno.petshop.repository.CategoriaRepository;
 import com.bruno.petshop.repository.CidadeRepository;
+import com.bruno.petshop.repository.EnderecoRepository;
 import com.bruno.petshop.repository.EspecieRepository;
 import com.bruno.petshop.repository.EstadoRepository;
+import com.bruno.petshop.repository.PessoaRepository;
 import com.bruno.petshop.repository.PetRepository;
 import com.bruno.petshop.repository.ProdutoRepository;
 import com.bruno.petshop.repository.RacaRepository;
@@ -44,6 +49,12 @@ public class PopulaDados {
 	
 	@Autowired
 	CidadeRepository cidadeRepository;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	PessoaRepository pessoaRepository;
 	
 	@PostConstruct
 	public void cadastrar() {
@@ -108,6 +119,19 @@ public class PopulaDados {
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
+		
+		Cliente clt1 = new Cliente(null, "José Maria", "josemaria@hotmail.com", "335.986.654-34","Física", "Cliente");
+		clt1.getTelefone().addAll(Arrays.asList("3236-8915", "98816-3345"));
+		
+		Funcionario fnc1 = new Funcionario(null, "Timóteo Saraiva", "timoteosaraiva@hotmail.com", "606.547.324-28", "Atendente", "Funcionario");
+		fnc1.getTelefone().addAll(Arrays.asList("3238-6366", "98420-4038"));
+		
+		Endereco end1 = new Endereco(null, "Rua Amadeu Amaral", "23", "Quadra E", "Ipase", "65061-070", cid1, clt1);
+		Endereco end2 = new Endereco(null, "Rua Cecília Meireles", "17", "Quadra E", "Ipase", "65062-070", cid1, clt1);
+		Endereco end3 = new Endereco(null, "Rua Zé Butinão", "13", "Apto 201", "Queimadas", "60061-050", cid2, fnc1);
+		
+		pessoaRepository.saveAll(Arrays.asList(clt1, fnc1));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 	}
 	
 }
