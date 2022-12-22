@@ -1,10 +1,20 @@
 package com.bruno.petshop.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Cliente extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 
 	private String tipo;
+	
+	@OneToMany(mappedBy = "cliente")
+	List<Servico> servico = new ArrayList<>();
 	
 	public Cliente() {
 		
@@ -21,6 +31,14 @@ public class Cliente extends Pessoa {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public List<Servico> getServico() {
+		return servico;
+	}
+
+	public void setServico(List<Servico> servico) {
+		this.servico = servico;
 	}
 	
 }

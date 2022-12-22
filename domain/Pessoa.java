@@ -29,16 +29,16 @@ public class Pessoa implements Serializable {
 	private Integer id;
 	private String nome;
 	private String email;
-	private String codNacional;
+	private String codNacional;	
 	private String funcao;
 	private String tipo;
 	
 	@ElementCollection
-	@CollectionTable(name = "Telefone", joinColumns = @JoinColumn(name = "id_pessoa"))
+	@CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "id_pessoa"))
 	private List <Endereco> endereco = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "pessoa")
-	private Set<String> telefone = new HashSet<>();
+	private Set<String> telefones = new HashSet<>();
 	
 	public Pessoa() {
 		
@@ -52,6 +52,7 @@ public class Pessoa implements Serializable {
 		this.codNacional = codNacional;
 		this.funcao = funcao;
 		this.tipo = tipo;
+		
 	}
 
 	@Override
@@ -111,12 +112,12 @@ public class Pessoa implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public Set<String> getTelefone() {
-		return telefone;
+	public Set<String> getTelefones() {
+		return telefones;
 	}
 
-	public void setTelefones(Set<String> telefone) {
-		this.telefone = telefone;
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	public String getFuncao() {
