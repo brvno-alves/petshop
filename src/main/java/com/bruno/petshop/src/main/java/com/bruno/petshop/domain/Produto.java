@@ -10,47 +10,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Pet implements Serializable{
+public class Produto implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1l;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Integer id;
 	private String nome;
-	private Integer idade;
+	private Double preco;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_especie")
-	private Especie especie;
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA", 
+				joinColumns = @JoinColumn(name = "id_produto"),
+				inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	
-	@ManyToOne
-	@JoinColumn(name = "id_raca")
-	private Raca raca;
-	
-	@OneToMany(mappedBy = "pet")
-	private List<Servico> servicos = new ArrayList<>();
-	
-	public Pet() {
+	private List<Categoria> categorias = new ArrayList<>();
+			
+	public Produto( ) {
 		
 	}
 
-	public Pet(Integer id, String nome, Integer idade, Especie especie, Raca raca) {
+	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.idade = idade;
-		this.especie = especie;
-		this.raca = raca;
+		this.preco = preco;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+		
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class Pet implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pet other = (Pet) obj;
+		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -81,29 +79,20 @@ public class Pet implements Serializable{
 		this.nome = nome;
 	}
 
-	public Integer getIdade() {
-		return idade;
+	public Double getPreco() {
+		return preco;
 	}
 
-	public void setIdade(Integer idade) {
-		this.idade = idade;
+	public void setPreco(Double preco) {
+		this.preco = preco;
 	}
 
-	public Especie getEspecie() {
-		return especie;
+	public List<Categoria> getCategorias() {
+		return categorias;
 	}
 
-	public void setEspecie(Especie especie) {
-		this.especie = especie;
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
-
-	public Raca getRaca() {
-		return raca;
-	}
-
-	public void setRaca(Raca raca) {
-		this.raca = raca;
-	}
-	
 	
 }

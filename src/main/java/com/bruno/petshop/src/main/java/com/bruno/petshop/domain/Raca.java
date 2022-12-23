@@ -9,36 +9,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Cidade implements Serializable{
+public class Raca implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Integer id;
-	private String nome;
+	private String descricao;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_estado")
-	private Estado estado;
+	@OneToMany(mappedBy = "raca")
 	
-	@OneToMany(mappedBy = "cidade")
-	private List<Endereco> enderecos = new ArrayList<>();
-
-	public Cidade() {
+	private List<Pet> pets = new ArrayList<>();
+	
+	public Raca() {
 		
 	}
 
-	public Cidade(Integer id, String nome, Estado estado) {
+	public Raca(Integer id, String descricao) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.estado = estado;
+		this.descricao = descricao;
 	}
 
 	@Override
@@ -54,7 +48,7 @@ public class Cidade implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		Raca other = (Raca) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -66,28 +60,20 @@ public class Cidade implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Estado getEstado() {
-		return estado;
+	public List<Pet> getPets() {
+		return pets;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
 	}
 	
 }
