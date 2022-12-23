@@ -35,10 +35,10 @@ public class Pessoa implements Serializable {
 	
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE", joinColumns = @JoinColumn(name = "id_pessoa"))
-	private List <Endereco> endereco = new ArrayList<>();
+	private Set<String> telefones = new HashSet<>();
 	
 	@OneToMany(mappedBy = "pessoa")
-	private Set<String> telefones = new HashSet<>();
+	private List <Endereco> endereco = new ArrayList<>();
 	
 	public Pessoa() {
 		

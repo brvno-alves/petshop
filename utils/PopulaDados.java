@@ -70,6 +70,7 @@ public class PopulaDados {
 	
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
 	@PostConstruct
 	public void cadastrar() throws ParseException {
 		
@@ -149,20 +150,27 @@ public class PopulaDados {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1);
-		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1);
-
+		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1, pet1);
+		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1, pet2);
+		Servico srv3 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("23/12/2021 16:30"), "Vermifugação", clt1, fnc1, pet3);
+		
 		Pagamento pgt1 = new PagamentoCartao(null, 60.0, SituacaoPagamento.Quitado, srv2, 6);
 		srv2.setPagamento(pgt1);
 
 		Pagamento pgt2 = new PagamentoDinheiro(null, 100.0, SituacaoPagamento.Pendente, srv1, sdf.parse("21/12/2022"), null);
 		srv1.setPagamento(pgt2);
 
+		Pagamento pgt3 = new PagamentoDinheiro(null, 50.0, SituacaoPagamento.Quitado, srv3, sdf.parse("23/12/2021 16:30"), null);
+		srv2.setPagamento(pgt3);
+		
 		clt1.getServico().addAll(Arrays.asList(srv1, srv2));
 		fnc1.getServico().addAll(Arrays.asList(srv1, srv2));
+		
+		srv2.getProdutos().addAll(Arrays.asList(p1, p2, p4));
+		srv3.getProdutos().addAll(Arrays.asList(p3));
 
-		servicoRepository.saveAll(Arrays.asList(srv1, srv2));
-		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2));
+		servicoRepository.saveAll(Arrays.asList(srv1, srv2, srv3));
+		pagamentoRepository.saveAll(Arrays.asList(pgt1, pgt2, pgt3));
 	}
 	
 }
