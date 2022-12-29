@@ -1,10 +1,13 @@
 package com.bruno.petshop.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import com.bruno.petshop.domain.Pessoa;
 import com.bruno.petshop.domain.Servico;
 import com.bruno.petshop.repository.ServicoRepository;
 import com.bruno.petshop.service.exceptions.DataIntegrityException;
@@ -36,5 +39,9 @@ public class ServicoService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Servico possui produtos. Não é possível deletar.");
 		}
+	}
+	
+	public List<Servico> findAll(){
+		return repo.findAll();
 	}
 }

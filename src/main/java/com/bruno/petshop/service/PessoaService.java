@@ -1,5 +1,6 @@
 package com.bruno.petshop.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,9 @@ public class PessoaService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Pessoa não é possível deletar.");
 		}
+	}
+	
+	public List<Pessoa> findAll(){
+		return repo.findAll();
 	}
 }
