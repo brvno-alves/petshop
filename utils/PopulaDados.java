@@ -151,7 +151,7 @@ public class PopulaDados {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 		Servico srv1 = new Servico(null, sdf.parse("02/09/2021 09:00"), sdf.parse("02/09/2021 12:00"), "Tosa", clt1, fnc1, pet1);
-		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("04/09/2021 12:00"), "Hotel", clt1, fnc1, pet2);
+		Servico srv2 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("21/12/2022 12:00"), "Hotel", clt1, fnc1, pet2);
 		Servico srv3 = new Servico(null, sdf.parse("03/09/2021 12:00"), sdf.parse("23/12/2021 16:30"), "Vermifugação", clt1, fnc1, pet3);
 		
 		Pagamento pgt1 = new PagamentoCartao(null, 60.0, SituacaoPagamento.Quitado, srv2, 6);

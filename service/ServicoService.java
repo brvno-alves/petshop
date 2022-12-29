@@ -7,25 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.bruno.petshop.domain.Pessoa;
-import com.bruno.petshop.repository.PessoaRepository;
+import com.bruno.petshop.domain.Servico;
+import com.bruno.petshop.repository.ServicoRepository;
 import com.bruno.petshop.service.exceptions.DataIntegrityException;
 import com.bruno.petshop.service.exceptions.ObjetoNaoEncontradoException;
 
 @Service
-public class PessoaService {
+public class ServicoService {
 	@Autowired
-	private PessoaRepository repo;
-
-	public Pessoa find(Integer id) {
-		Optional<Pessoa> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Objeto não encontrado. ID: " + id + ", Tipo: " + Pessoa.class.getName()));
+	private ServicoRepository repo;
+	
+	public Servico find (Integer id) {
+		Optional<Servico> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Objeto não encontrado. ID: " + id + ", Tipo: " + Servico.class.getName()));
 	}
-	public Pessoa insert(Pessoa obj) {
+	
+	public Servico insert(Servico obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	public Pessoa update(Pessoa obj) {
+	public Servico update(Servico obj) {
 		find(obj.getId());
 		return repo.save(obj);
 	}
@@ -35,11 +36,11 @@ public class PessoaService {
 		try {
 			repo.deleteById(id);
 		} catch(DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Pessoa não é possível deletar.");
+			throw new DataIntegrityException("Servico possui produtos. Não é possível deletar.");
 		}
 	}
 	
-	public List<Pessoa> findAll(){
+	public List<Servico> findAll(){
 		return repo.findAll();
 	}
 }

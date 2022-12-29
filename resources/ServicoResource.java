@@ -13,33 +13,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.bruno.petshop.domain.Pessoa;
-import com.bruno.petshop.dto.PessoaDTO;
-import com.bruno.petshop.service.PessoaService;
+import com.bruno.petshop.domain.Servico;
+import com.bruno.petshop.dto.ServicoDTO;
+import com.bruno.petshop.service.ServicoService;
 
 @RestController
-@RequestMapping(value = "/pessoas")
-public class PessoaResource {
+@RequestMapping(value = "/Servicos")
+public class ServicoResource {
 	
 	@Autowired
-	PessoaService service;
+	ServicoService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
-		Pessoa obj = service.find(id);
+		Servico obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-	
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> insert(@RequestBody Pessoa obj){
+	public ResponseEntity<?> insert(@RequestBody Servico obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Pessoa obj, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@RequestBody Servico obj, @PathVariable Integer id){
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -52,9 +51,9 @@ public class PessoaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<PessoaDTO>> findAll(){
-		List<Pessoa> list = service.findAll();
-		List<PessoaDTO> listDto = list.stream().map(obj -> new PessoaDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<ServicoDTO>> findAll(){
+		List<Servico> list = service.findAll();
+		List<ServicoDTO> listDto = list.stream().map(obj -> new ServicoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 }
